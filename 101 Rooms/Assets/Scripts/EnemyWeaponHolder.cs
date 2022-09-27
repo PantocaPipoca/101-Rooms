@@ -7,6 +7,7 @@ public class EnemyWeaponHolder : MonoBehaviour
     Rigidbody2D rb;
     GameObject player;
     GameObject himSelf;
+    Animator animator;
 
     [SerializeField] float offSet;
 
@@ -15,6 +16,7 @@ public class EnemyWeaponHolder : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         himSelf = transform.parent.gameObject;
+        animator = himSelf.GetComponent<Animator>();
     }
 
 
@@ -38,6 +40,27 @@ public class EnemyWeaponHolder : MonoBehaviour
         else
         {
             transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        if (angle >= -45 || angle <= 45)
+        {
+            animator.SetFloat("moveX", 1f);
+            animator.SetFloat("moveY", 0f);
+        }
+        if (angle > 45 && angle < 135)
+        {
+            animator.SetFloat("moveX", 0f);
+            animator.SetFloat("moveY", 1f);
+        }
+        if (angle >= 135 || angle <= -135)
+        {
+            animator.SetFloat("moveX", -1f);
+            animator.SetFloat("moveY", 0f);
+        }
+        if (angle > -135 && angle < -45)
+        {
+            animator.SetFloat("moveX", 0f);
+            animator.SetFloat("moveY", -1f);
         }
     }
 

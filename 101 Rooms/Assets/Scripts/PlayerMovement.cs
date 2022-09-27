@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     bool SpikesCanHit = true;
     bool CanRool = true;
     bool OnSpikes = false;
+    Animator animator;
 
     [SerializeField] Sprite leftHalf;
     [SerializeField] Sprite rightHalfFull;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -61,6 +63,14 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         rb.velocity = moveDirection.normalized * speed;
+        if (rb.velocity.x == 0 && rb.velocity.y == 0)
+        {
+            animator.SetBool("Walking", false);
+        }
+        else
+        {
+            animator.SetBool("Walking", true);
+        }
     }
 
     private void HeartSystem ()

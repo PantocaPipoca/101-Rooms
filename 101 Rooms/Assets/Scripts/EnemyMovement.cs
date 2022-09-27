@@ -13,6 +13,7 @@ public class EnemyMovement : MonoBehaviour
 
     GameObject physicsObject;
     AIPath aiPath;
+    Animator animator;
 
 
 
@@ -21,6 +22,7 @@ public class EnemyMovement : MonoBehaviour
         physicsObject = transform.parent.gameObject;
         aiPath = physicsObject.GetComponent<AIPath>();
         aiPath.endReachedDistance = followRadius;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,11 +35,13 @@ public class EnemyMovement : MonoBehaviour
         {
             aiPath.endReachedDistance = followRadius;
             move = false;
+            animator.SetBool("Walking", false);
         }
         else
         {
             aiPath.endReachedDistance = stayRadius;
             move = true;
+            animator.SetBool("Walking", true);
         }
     }
 }
